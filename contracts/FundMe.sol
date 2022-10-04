@@ -41,7 +41,32 @@ contract fundMe {
     }
 
    
-    //function withdraw(){}
+    function withdraw() public {
+        for(uint256 funderIndex = 0; funderIndex < funders.length; funderIndex ++) {
+        // code 
+        //looping through the funders array 
+        address funder = funders[funderIndex];
+        //reset the mapping 
+        addressToAmountFunded[funder] = 0;
+        }
+        // reset the array 
+        funders = new address[](0);
+
+        //withdrawing - there are 3 ways to send eth 1.transfer 2.send 3.call
+        //in solidity we can only send native blockchain token like ethereum with payable addresses 
+        //payable(msg.sender) = payable address
+        //msg.sender = address
+        //transfer menthod
+        //payable(msg.sender).transfer(address(this).balance); // this is capped at 2300 gas and if this contracts uses more gas or fails it would throw an error - tranfer method 
+        //send is also capped at 2300 gas and if it fails it would return a boolean
+        //send
+        //bool sendSuccess = payable(msg.sender).send(address(this).balance);
+        //require(sendSuccess, "Send failed");
+        //call - this is the recomended way to send eth or your token of chioce 
+        // this method can be used to call any function in all of eth without even having the ABI
+        (bool callSucess, ) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSucess, "call failed");
+    }
      
 }
 
