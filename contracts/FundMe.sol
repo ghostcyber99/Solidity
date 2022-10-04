@@ -20,7 +20,7 @@ import "./PriceConverter.sol";
 contract fundMe {
     using PriceConverter for uint256;
 
-    uint256 public miminumUsd = 50 * 1e18;
+    uint256 public constant MINIUM_USD = 50 * 1e18;
 
     //saving the funders 
     address[] public funders;
@@ -28,10 +28,10 @@ contract fundMe {
     mapping(address => uint256) public addressToAmountFunded;
 
     //making sure only the owner of the constract can withdraw form the contract
-    address public owner;
+    address public immutable i_owner;
 
     constructor(){
-        owner = msg.sender;
+        i_owner = msg.sender;
     }
 
     //contract  can hold funds like wallets can hold funds 
@@ -42,7 +42,7 @@ contract fundMe {
     //1e18 is the value of wei == 1eth
     //reverting is where the contract revert any gas because the contract value was not met.
     // gas was spent in the initail computation but every else would be reverted
-    require(msg.value.getConversationRate() >= miminumUsd, "Not enough");
+    require(msg.value.getConversationRate() >= MINIUM_USD, "Not enough");
     funders.push(msg.sender); 
     addressToAmountFunded[msg.sender] = msg.value;
     }
@@ -78,7 +78,7 @@ contract fundMe {
     modifier onlyOwner {
         //the only owner in the withdrawal function says that before the function is executed check if it is the owner if it is then continue. 
         //the _ means that then do the rest if not throw the error Sneder is not owner
-        require(msg.sender == owner, "Sender is not owner");
+        require(msg.sender == i_owner, "Sender is not owner");
         _;
     }
      
