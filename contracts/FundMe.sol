@@ -27,6 +27,13 @@ contract fundMe {
     //mapping the ammount funded to the funder 
     mapping(address => uint256) public addressToAmountFunded;
 
+    //making sure only the owner of the constract can withdraw form the contract
+    address public owner;
+
+    constructor(){
+        owner = msg.sender;
+    }
+
     //contract  can hold funds like wallets can hold funds 
     function fund() public payable {
     //the requier keyword means that, that is the minimum amount someone can send to this contract
@@ -41,7 +48,7 @@ contract fundMe {
     }
 
    
-    function withdraw() public {
+    function withdraw() public onlyOwner{
         for(uint256 funderIndex = 0; funderIndex < funders.length; funderIndex ++) {
         // code 
         //looping through the funders array 
@@ -51,7 +58,7 @@ contract fundMe {
         }
         // reset the array 
         funders = new address[](0);
-
+ 
         //withdrawing - there are 3 ways to send eth 1.transfer 2.send 3.call
         //in solidity we can only send native blockchain token like ethereum with payable addresses 
         //payable(msg.sender) = payable address
@@ -66,6 +73,13 @@ contract fundMe {
         // this method can be used to call any function in all of eth without even having the ABI
         (bool callSucess, ) = payable(msg.sender).call{value: address(this).balance}("");
         require(callSucess, "call failed");
+    }
+
+    modifier onlyOwner {
+        //the only owner in the withdrawal function says that before the function is executed check if it is the owner if it is then continue. 
+        //the _ means that then do the rest if not throw the error Sneder is not owner
+        require(msg.sender == owner, "Sender is not owner");
+        _;
     }
      
 }
