@@ -17,10 +17,12 @@ pragma solidity ^0.8.0;
 
 import "./PriceConverter.sol";
 
+error NotOwer();
+
 contract fundMe {
     using PriceConverter for uint256;
 
-    uint256 public constant MINIUM_USD = 50 * 1e18;
+    uint256 public constant MINIUM_USD = 50 * 1e18; //constand variables usaully are in all caps - thats their naming convertion 
 
     //saving the funders 
     address[] public funders;
@@ -78,11 +80,20 @@ contract fundMe {
     modifier onlyOwner {
         //the only owner in the withdrawal function says that before the function is executed check if it is the owner if it is then continue. 
         //the _ means that then do the rest if not throw the error Sneder is not owner
-        require(msg.sender == i_owner, "Sender is not owner");
+        //require(msg.sender == i_owner, "Sender is not owner");
+        if(msg.sender != i_owner) { revert NotOwer();}
         _;
     }
 
-     
+    //now if there is a blank transcation it would be sent back to the fund function 
+    receive() external payable {
+        fund();
+    } 
+    
+    //now if there is a transction without the fund function called it is automatially sent to the fund function 
+    fallback() external payable {
+        fund();
+    }
      
 }
 
