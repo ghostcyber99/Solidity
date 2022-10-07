@@ -1,0 +1,85 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "contract Wallet",
+						"name": "_wallet",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "attack",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address payable",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Attack.sol": "Attack"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Attack.sol": {
+			"keccak256": "0x340d78402bae5230536d77ea176c68ad124eef05d5aa4a91cc654af0271751f2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f028b88553febacab89adeb1919f3485f33fa41eb715a612a244dbb0f34fdfa1",
+				"dweb:/ipfs/QmceoRnenbwRV6Qo2PF3KPWQUNZzQUn8g7sRh91CUVLwmk"
+			]
+		},
+		"contracts/Wallet.sol": {
+			"keccak256": "0x82852f2cc24403747d179d514f6bfc1a294507a68ab5de96823c5f1292c5455a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://76c9e9566eedf9c98ab0bfb52542b6efac05e758288b27d48c2d695ce02ff1e4",
+				"dweb:/ipfs/QmZWMhsLHPwRskKDNTxySKSFnpusjqn56N4sMe3nZWT2YG"
+			]
+		}
+	},
+	"version": 1
+}
